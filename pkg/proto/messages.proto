@@ -1,0 +1,20 @@
+syntax="proto3";
+package protobuf;
+
+option go_package = "./pkg/proto";
+
+// Описание структур, с которыми будет работать
+message Msg {
+    string text = 1;
+    int64 id = 2;
+}
+
+message Empty {}
+
+// PB: "protoc -I . --go_out=. ./pkg/proto/messages.proto"
+// gRPC: "protoc --go_out=. --go_opt=paths=source_relative --go-grpc_out=. --go-grpc_opt=paths=source_relative ./pkg/proto/messages.proto"
+
+service Messager {
+    rpc Messages (Empty) returns (stream Msg) {}
+    rpc NewMessage (Msg) returns (Empty) {}
+}
