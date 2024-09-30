@@ -30,6 +30,7 @@ func main() {
 
 	start := time.Now()
 
+	var i int
 	for i := 0; i < 10; i++ {
 		msg := pb.Msg{
 			Id:   int64(i),
@@ -38,12 +39,18 @@ func main() {
 		client.NewMessage(ctx, &msg)
 	}
 
+	duration := time.Since(start)
+	fmt.Printf("Отправлено %d сообщений за %v.\n", i, duration)
+
+	start = time.Now()
+
 	err = PrintAllMessage(ctx, client)
 	if err != nil {
 		log.Fatal(err)
 	}
-	duration := time.Since(start)
-	fmt.Println(duration)
+
+	duration = time.Since(start)
+	fmt.Printf("Все сообщения приняты за %v.", duration)
 }
 
 func PrintAllMessage(ctx context.Context, client pb.MessagerClient) error {
