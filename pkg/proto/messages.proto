@@ -3,7 +3,6 @@ package protobuf;
 
 option go_package = "./pkg/proto";
 
-// Описание структур, с которыми будет работать
 message Msg {
     string text = 1;
     int64 id = 2;
